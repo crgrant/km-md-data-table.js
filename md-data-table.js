@@ -521,12 +521,20 @@ function mdEditDialog($compile, $controller, $document, $mdUtil, $q, $rootScope,
   }
 
   function getClickableSibling(el,prev) {
+    var clickable = false;
       while (el!==null) {
           if (el.classList) {
+            console.log(el.classList);
               for (var classnum in el.classList) {
                   if (el.classList[classnum]==='md-clickable') {
-                      return el;
+                      clickable = true;
                   }
+                  else if(el.classList[classnum]==='dont-show'){
+                      clickable = false;
+                  }
+              }
+              if(clickable) {
+                return el
               }
           }
           el = prev===true ? el.previousSibling: el.nextSibling;
